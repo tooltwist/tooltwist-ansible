@@ -1,4 +1,4 @@
-# Fast Configuration of ToolTwist servers
+## Fast Configuration of ToolTwist servers
 
 The scripts in this project are used to set up one or more servers for ToolTwist deployments. Various types of servers can be fired up and running in a few minutes, making them ideal for testing.
 
@@ -18,7 +18,7 @@ To do this, we use several products:
 If you have an existing server running, Ansible can be used to configure the machine. If you don't have an existing server, Vagrant can create the server(s) and then run Ansible for you.
 
 
-## Example Usage
+## Creating a server on Virtualbox
 If you already have _Virtual Box_, _Vagrant_ and _Ansible_ installed on your machine, the following commands will create a Virtual Machine ready to run ToolTwist servers.
 
     $ git clone https://github.com/tooltwist/tooltwist-ansible.git
@@ -29,8 +29,8 @@ If you already have _Virtual Box_, _Vagrant_ and _Ansible_ installed on your mac
     Unpacking objects: 100% (49/49), done.
     
     $ cd tooltwist-ansible/virtualbox
-    
     $ vagrant up
+    ...
     
 The first time this command is executed it takes a while to run, as the base virtual machine is downloaded, and then Ansible is used to configure the machine. Once the server is running you can log in.
 
