@@ -1,0 +1,85 @@
+---
+- name: Install zip unzip
+  yum: name={{item}} state=installed 
+  with_items:
+    - zip
+    - unzip
+
+- name: Install git
+  yum: name=git state=installed
+
+# https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager    
+- name: Install nodejs and npm
+  yum: name=npm state=installed
+
+# https://www.digitalocean.com/community/articles/how-to-install-ruby-on-rails-on-centos-6
+# Note, we don't need rails
+- name: Install Ruby
+  yum: name=ruby state=installed
+
+
+# Install an older version of ImageMagick
+- name: Install ImageMagick
+  yum: name=ImageMagick state=installed
+
+# Install a newer version of ImageMagick
+#   http://imagemagick.org/script/binary-releases.php#unix
+# This can have problems with dependencies. See this link:
+#   http://www.sysadminhub.in/2013/06/upgrade-imagemagick-on-red-hat-58.html
+# - name: Download ImageMagick Repo
+#   get_url: url=http://www.imagemagick.org/download/linux/CentOS/i386/ImageMagick-6.8.8-2.i386.rpm dest=/tmp/ImageMagick-6.8.8-2.i386.rpm
+# 
+# - name: Install ImageMagick Repo
+#   command: rpm -Uvh /tmp/ImageMagick-6.8.8-2.i386.rpm creates=/usr/bin/convert
+
+
+
+
+
+# Install MySQL
+# http://docs.ansible.com/mysql_user_module.html
+# - name: Install MySQL
+#   yum: name={{item}} state=installed
+#   with_items:
+#       - mysql-server
+#       - mysql
+# 
+# - name: Install python-mysqldb
+# #  yum: name=python-mysqldb state=installed
+#   yum: name=MySQL-python state=installed
+# 
+# - name: Create MySQL database
+#   mysql_db: name=tooltwist state=present
+#   
+# - name: Create MySql user
+#   mysql_user: name=tooltwist password=mouse123 priv=*.*:ALL,GRANT state=present
+
+
+# Install Gradle
+- name: Create Gradle directory
+  command: mkdir -p /usr/local/gradle
+  
+#- name: Download Gradle
+#  get_url: url=http://downloads.gradle.org/distributions/gradle-1.10-all.zip dest=/tmp/gradle.zip
+  
+- name: Install Gradle
+  command: unzip -o /tmp/gradle.zip -d /usr/local
+
+#- Clean up after Gradle install
+# Maybe just let the next reboot remove the file
+#  command: rm /tmp/gradle.zip
+
+
+#
+#   Create login for tooltwist
+#
+#- name: Install useradd
+#  yum: name={{item}} state=installed 
+#  with_items:
+#    - useradd
+
+- name: Create user 'tooltwist'
+  user: name=tooltwist comment="ToolTwist server" groups=tooltwist,wheel
+
+- name: Create .bashrc
+  template: src=bashrc dest=/home/tooltwist/.bashrc

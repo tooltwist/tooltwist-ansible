@@ -1,0 +1,44 @@
+# .bashrc
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+	. /etc/bashrc
+fi
+
+# User specific aliases and functions
+
+
+
+
+
+#	Nice command line options for Philip Callender
+#	Feel free to disble these
+KEEP_PHIL_HAPPY=true
+if $KEEP_PHIL_HAPPY == true ; then
+	
+	# Use vi commands on the command line
+	set -o vi
+
+	# Show files
+	function l { ls -l "$@"; }
+	# Latest last
+	function lr { ls -ltr "$@"; }
+	# hidden files
+	function la { ls -la "$@"; }
+	# what's running in the background (Ctrl-Z, bg, fg)
+	function j { jobs -l "$@"; }
+fi
+
+
+# Gradle
+#GRADLE_HOME=/Users/philipcallender/Development/gradle-1.6
+GRADLE_HOME=/usr/local/gradle-1.10
+PATH=${PATH}:$GRADLE_HOME/bin
+function g { gradle "$@" ; }
+
+
+
+# ToolTwist variables
+export TTC_CONFIG=/tooltwist/tooltwist_osx_8.0-beta/devel/ttc_t/config
+export TTC_DEPLOY=/ControllerV8
+
